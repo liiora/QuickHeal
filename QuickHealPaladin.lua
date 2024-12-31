@@ -93,7 +93,7 @@ function QuickHeal_Paladin_FindSpellToUse(Target, healType, multiplier, forceMax
     local InCombat = UnitAffectingCombat('player') or UnitAffectingCombat(Target);
 
     -- Healing Light Talent (increases healing by 4% per rank)
-    local _,_,_,_,talentRank,_ = GetTalentInfo(1,5);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,6);
     local hlMod = 4*talentRank/100 + 1;
     debug(string.format("Healing Light talentmodification: %f", hlMod))
 
@@ -216,7 +216,7 @@ function QuickHeal_Paladin_FindHealSpellToUseNoTarget(maxhealth, healDeficit, he
     local InCombat = UnitAffectingCombat('player') or incombat;
 
     -- Healing Light Talent (increases healing by 4% per rank)
-    local _,_,_,_,talentRank,_ = GetTalentInfo(1,5);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,6);
     local hlMod = 4*talentRank/100 + 1;
     debug(string.format("Healing Light talentmodification: %f", hlMod))
 
