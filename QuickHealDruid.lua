@@ -90,22 +90,22 @@ function QuickHeal_Druid_FindHealSpellToUse(Target, healType, multiplier, forceM
     local InCombat = UnitAffectingCombat('player') or UnitAffectingCombat(Target);
 
     -- Gift of Nature - Increases healing by 2% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,12); 
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,8); 
     local gnMod = 2*talentRank/100 + 1;
     debug(string.format("Gift of Nature modifier: %f", gnMod));
 
     -- Tranquil Spirit - Decreases mana usage by 2% per rank on HT only
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,9); 
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,10); 
     local tsMod = 1 - 2*talentRank/100;
     debug(string.format("Tranquil Spirit modifier: %f", tsMod));
 
     -- Moonglow - Decrease mana usage by 3% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(1,14); 
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,13); 
     local mgMod = 1 - 3*talentRank/100;
     debug(string.format("Moonglow modifier: %f", mgMod));
    
     -- Improved Rejuvenation -- Increases Rejuvenation effects by 5% per rank
-    --local _,_,_,_,talentRank,_ = GetTalentInfo(3,10); 
+    --local _,_,_,_,talentRank,_ = GetTalentInfo(3,9); 
     --local irMod = 5*talentRank/100 + 1;
     --debug(string.format("Improved Rejuvenation modifier: %f", irMod));
 
@@ -116,7 +116,7 @@ function QuickHeal_Druid_FindHealSpellToUse(Target, healType, multiplier, forceM
         debug("Target is healthy ",Health);
     end
     
-    -- Detect Clearcasting (from Omen of Clarity, talent(1,9))
+    -- Detect Clearcasting (from Omen of Clarity, talent(1,10))
     if QuickHeal_DetectBuff('player',"Spell_Shadow_ManaBurn",1) then -- Spell_Shadow_ManaBurn (1)
         ManaLeft = UnitManaMax('player');  -- set to max mana so max spell rank will be cast
         healneed = 10^6; -- deliberate overheal (mana is free)
@@ -356,22 +356,22 @@ function QuickHeal_Druid_FindHealSpellToUseNoTarget(maxhealth, healDeficit, heal
     local InCombat = UnitAffectingCombat('player') or incombat;
 
     -- Gift of Nature - Increases healing by 2% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,12);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,8);
     local gnMod = 2*talentRank/100 + 1;
     debug(string.format("Gift of Nature modifier: %f", gnMod));
 
     -- Tranquil Spirit - Decreases mana usage by 2% per rank on HT only
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,9);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,10);
     local tsMod = 1 - 2*talentRank/100;
     debug(string.format("Tranquil Spirit modifier: %f", tsMod));
 
     -- Moonglow - Decrease mana usage by 3% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(1,14);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,13);
     local mgMod = 1 - 3*talentRank/100;
     debug(string.format("Moonglow modifier: %f", mgMod));
 
     -- Improved Rejuvenation -- Increases Rejuvenation effects by 5% per rank
-    --local _,_,_,_,talentRank,_ = GetTalentInfo(3,10);
+    --local _,_,_,_,talentRank,_ = GetTalentInfo(3,9);
     --local irMod = 5*talentRank/100 + 1;
     --debug(string.format("Improved Rejuvenation modifier: %f", irMod));
 
@@ -382,7 +382,7 @@ function QuickHeal_Druid_FindHealSpellToUseNoTarget(maxhealth, healDeficit, heal
         debug("Target is healthy ",Health);
     end
 
-    -- Detect Clearcasting (from Omen of Clarity, talent(1,9))
+    -- Detect Clearcasting (from Omen of Clarity, talent(1,10))
     if QuickHeal_DetectBuff('player',"Spell_Shadow_ManaBurn",1) then -- Spell_Shadow_ManaBurn (1)
         ManaLeft = UnitManaMax('player');  -- set to max mana so max spell rank will be cast
         healneed = 10^6; -- deliberate overheal (mana is free)
@@ -530,22 +530,22 @@ function QuickHeal_Druid_FindHoTSpellToUse(Target, healType, forceMaxRank)
     local InCombat = UnitAffectingCombat('player') or UnitAffectingCombat(Target);
 
     -- Gift of Nature - Increases healing by 2% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,12);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,8);
     local gnMod = 2*talentRank/100 + 1;
     debug(string.format("Gift of Nature modifier: %f", gnMod));
 
     -- Tranquil Spirit - Decreases mana usage by 2% per rank on HT only
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,9);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,10);
     local tsMod = 1 - 2*talentRank/100;
     debug(string.format("Tranquil Spirit modifier: %f", tsMod));
 
     -- Moonglow - Decrease mana usage by 3% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(1,14);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,13);
     local mgMod = 1 - 3*talentRank/100;
     debug(string.format("Moonglow modifier: %f", mgMod));
 
     -- Improved Rejuvenation -- Increases Rejuvenation effects by 5% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,10);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,9);
     local irMod = 5*talentRank/100 + 1;
     debug(string.format("Improved Rejuvenation modifier: %f", irMod));
 
@@ -556,7 +556,7 @@ function QuickHeal_Druid_FindHoTSpellToUse(Target, healType, forceMaxRank)
         debug("Target is healthy ",Health);
     end
 
-    -- Detect Clearcasting (from Omen of Clarity, talent(1,9))
+    -- Detect Clearcasting (from Omen of Clarity, talent(1,10))
     if QuickHeal_DetectBuff('player',"Spell_Shadow_ManaBurn",1) then -- Spell_Shadow_ManaBurn (1)
         ManaLeft = UnitManaMax('player');  -- set to max mana so max spell rank will be cast
         healneed = 10^6; -- deliberate overheal (mana is free)
@@ -700,22 +700,22 @@ function QuickHeal_Druid_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, healT
     local InCombat = UnitAffectingCombat('player') or incombat;
 
     -- Gift of Nature - Increases healing by 2% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,12);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,8);
     local gnMod = 2*talentRank/100 + 1;
     debug(string.format("Gift of Nature modifier: %f", gnMod));
 
     -- Tranquil Spirit - Decreases mana usage by 2% per rank on HT only
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,9);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,10);
     local tsMod = 1 - 2*talentRank/100;
     debug(string.format("Tranquil Spirit modifier: %f", tsMod));
 
     -- Moonglow - Decrease mana usage by 3% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(1,14);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,13);
     local mgMod = 1 - 3*talentRank/100;
     debug(string.format("Moonglow modifier: %f", mgMod));
 
     -- Improved Rejuvenation -- Increases Rejuvenation effects by 5% per rank
-    local _,_,_,_,talentRank,_ = GetTalentInfo(3,10);
+    local _,_,_,_,talentRank,_ = GetTalentInfo(3,9);
     local irMod = 5*talentRank/100 + 1;
     debug(string.format("Improved Rejuvenation modifier: %f", irMod));
 
@@ -726,7 +726,7 @@ function QuickHeal_Druid_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, healT
         debug("Target is healthy ",Health);
     end
 
-    -- Detect Clearcasting (from Omen of Clarity, talent(1,9))
+    -- Detect Clearcasting (from Omen of Clarity, talent(1,10))
     if QuickHeal_DetectBuff('player',"Spell_Shadow_ManaBurn",1) then -- Spell_Shadow_ManaBurn (1)
         ManaLeft = UnitManaMax('player');  -- set to max mana so max spell rank will be cast
         healneed = 10^6; -- deliberate overheal (mana is free)
