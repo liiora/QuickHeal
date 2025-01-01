@@ -121,7 +121,7 @@ function QuickHeal_Paladin_FindSpellToUse(Target, healType, multiplier, forceMax
     debug("Target debuff healing modifier",HDB);
     healneed = healneed/HDB;
 
-    -- Get a list of ranks available of 'Lesser Healing Wave' and 'Healing Wave'
+    -- Get a list of ranks available of 'Flash of Light' and 'Holy Light'
     local SpellIDsHL = GetSpellIDs(QUICKHEAL_SPELL_HOLY_LIGHT);
     local SpellIDsFL = GetSpellIDs(QUICKHEAL_SPELL_FLASH_OF_LIGHT);
     local maxRankHL = table.getn(SpellIDsHL);
