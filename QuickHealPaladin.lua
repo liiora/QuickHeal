@@ -242,7 +242,7 @@ function QuickHeal_Paladin_FindHealSpellToUseNoTarget(maxhealth, healDeficit, he
     -- Detect proc of 'Holy Judgement" (next Holy Light is fast cast)
     if QuickHeal_DetectBuff('player',"ability_paladin_judgementblue") then
         debug("BUFF: Holy Judgement (out of combat healing forced)");
-        InCombat = false;
+        forceMaxHPS = false;
     end
 
     -- Get total healing modifier (factor) caused by healing target debuffs
