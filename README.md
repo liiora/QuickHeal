@@ -153,5 +153,5 @@ Druid healing improvements & Shaman chainheal fix.
 <hr>
 
 **1.17.6**<Br>
-Talents modifications (positions & values) for all class, linked to 1.17.2 Turtle Wow patch
-Paladin : Integration of Holy Judgement mechanic to prio HL in that situation 
+- Talents modifications (positions & values) for all class, linked to 1.17.2 Turtle Wow patch
+- Paladin : Integration of Holy Judgement mechanic to prio HL in that situation 
