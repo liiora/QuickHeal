@@ -650,54 +650,34 @@ HealComm.Spells = {
 	};
 	[L["Healing Wave"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (40*pMod+(((1.5/3.5) * SpellPower)*0.22))
+			return (40+(((1.5/3.5) * SpellPower)*0.22))
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (72*pMod+(((2/3.5) * SpellPower)*0.38))
+			return (72+(((2/3.5) * SpellPower)*0.38))
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (143*pMod+(((2.5/3.5) * SpellPower)*0.446))
+			return (143+(((2.5/3.5) * SpellPower)*0.446))
 		end;
 		[4] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (293*pMod+(((3/3.5) * SpellPower)*0.7))
+			return (293+(((3/3.5) * SpellPower)*0.7))
 		end;
 		[5] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (409*pMod+((3/3.5) * SpellPower))
+			return (409+((3/3.5) * SpellPower))
 		end;
 		[6] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (580*pMod+((3/3.5) * SpellPower))
+			return (580+((3/3.5) * SpellPower))
 		end;
 		[7] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (798*pMod+((3/3.5) * SpellPower))
+			return (798+((3/3.5) * SpellPower))
 		end;
 		[8] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (1093*pMod+((3/3.5) * SpellPower))
+			return (1093+((3/3.5) * SpellPower))
 		end;
 		[9] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (1465*pMod+((3/3.5) * SpellPower))
+			return (1465+((3/3.5) * SpellPower))
 		end;
 		[10] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (1736*pMod+((3/3.5) * SpellPower))
+			return (1736+((3/3.5) * SpellPower))
 		end;
 	};
 	[L["Lesser Healing Wave"]] = {
@@ -712,9 +692,7 @@ HealComm.Spells = {
 					tp = 40
 				end
 			end
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (175*pMod+tp+((1.5/3.5) * SpellPower))
+			return (175+tp+((1.5/3.5) * SpellPower))
 		end;
 		[2] = function (SpellPower)
 			local tp = 0
@@ -727,9 +705,7 @@ HealComm.Spells = {
 					tp = 40
 				end
 			end
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (265*pMod+tp+((1.5/3.5) * SpellPower))
+			return (265+tp+((1.5/3.5) * SpellPower))
 		end;
 		[3] = function (SpellPower)
 			local tp = 0
@@ -742,9 +718,7 @@ HealComm.Spells = {
 					tp = 40
 				end
 			end
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (360*pMod+tp+((1.5/3.5) * SpellPower))
+			return (360+tp+((1.5/3.5) * SpellPower))
 		end;
 		[4] = function (SpellPower)
 			local tp = 0
@@ -757,9 +731,7 @@ HealComm.Spells = {
 					tp = 40
 				end
 			end
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (487*pMod+tp+((1.5/3.5) * SpellPower))
+			return (487+tp+((1.5/3.5) * SpellPower))
 		end;
 		[5] = function (SpellPower)
 			local tp = 0
@@ -772,9 +744,7 @@ HealComm.Spells = {
 					tp = 40
 				end
 			end
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (669*pMod+tp+((1.5/3.5) * SpellPower))
+			return (669+tp+((1.5/3.5) * SpellPower))
 		end;
 		[6] = function (SpellPower)
 			local tp = 0
@@ -787,26 +757,18 @@ HealComm.Spells = {
 					tp = 40
 				end
 			end
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (881*pMod+tp+((1.5/3.5) * SpellPower))
+			return (881+tp+((1.5/3.5) * SpellPower))
 		end;
 	};
 	[L["Chain Heal"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (344*pMod+((2.5/3.5) * SpellPower))
+			return (344+((2.5/3.5) * SpellPower))
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (435*pMod+((2.5/3.5) * SpellPower))
+			return (435+((2.5/3.5) * SpellPower))
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(3,14)
-			local pMod = 2*talentRank/100 + 1
-			return (591*pMod+((2.5/3.5) * SpellPower))
+			return (591+((2.5/3.5) * SpellPower))
 		end;
 	};
 	[L["Lesser Heal"]] = {
