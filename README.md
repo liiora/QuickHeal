@@ -1,21 +1,15 @@
 
-# QuickHeal v1.17.6
+# QuickHeal v1.17.7
 
 QuickHeal for Turtle WoW
 
 QuickHeal gives healers fast access to all of their direct healing spells for healing party/raid members and themselves. It lets you heal the people who need it, without having to target them manually, or even having to deselect the enemy you're fighting. It gives maximum mana efficiency, and will automatically use a lower rank of healing if the target doesn't need your biggest heal, or if your mana is running low. This also works when not in a party or a raid, and this will save you mana and precious time by automatically selecting the healing spell. There are several different key bindings for constraining the scope of players that will be considered for heals.
 
-I'm not the author of this revised version.  I modified Sulpitz's version to include an interface that allows the user to define a tank group independently of oRA.  This version works with the 1.12.1 client.
-
-I shamelessly plagiarized the most recent version of QuickHeal with integration for HealComm from
-https://github.com/Sulpitz/QuickHeal
-
-..who previously got it from
-https://wow.curseforge.com/projects/project-2800
+This version was created by Zebouski and before that by Sulpitz, I just added some modifications to fit with Turtle WoW 1.17.2
 
 **Integration of HealComm**
 
-QuickHeal uses the incoming heal information broadcast by HealComm (Luna unit Frames), through the addonchannel to reduce overhealing and making this addon used by multiple raidmembers more effective.
+QuickHeal uses the incoming heal information broadcast by HealComm, through the addonchannel to reduce overhealing and making this addon used by multiple raidmembers more effective.
 
 ## Installation
 - Download QuickHeal from this repository into your Interface folder and remove the "-main" in the folder name
@@ -157,3 +151,7 @@ Druid healing improvements & Shaman chainheal fix.
 - Druid: When in Normal HPS mode, HT4 will be cast over HT3 if Nature's Grace procs.
 - Shaman: Fixed intermittent ChainHeal SpellID error
 <hr>
+
+**1.17.6**<Br>
+Talents modifications (positions & values) for all class, linked to 1.17.2 Turtle Wow patch
+Paladin : Integration of Holy Judgement mechanic to prio HL in that situation 
