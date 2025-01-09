@@ -1902,11 +1902,29 @@ function GetRotaSpell(class, maxhealth, healDeficit, type, forceMaxHPS, forceMax
     return data;
 end
 
+
+-- Check if Regrowth (Rank 1) is in the spellbook
+local function HasRegrowthRank1()
+    for i = 1, MAX_SPELLS do
+        local spellName, spellRank = GetSpellName(i, BOOKTYPE_SPELL);
+        if spellName == "Regrowth" and spellRank == "Rank 1" then
+            return true; -- Regrowth (Rank 1) found
+        end
+    end
+    return false; -- Regrowth (Rank 1) not found
+end
+
 local function CastCheckSpell()
     local _, class = UnitClass('player');
     class = string.lower(class);
     if class == "druid" then
-        CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_HEALING_TOUCH)[1].SpellID, BOOKTYPE_SPELL);
+        if HasRegrowthRank1() then
+            -- Cast Regrowth if Rank 1 exists in spellbook
+            CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_REGROWTH)[1].SpellID, BOOKTYPE_SPELL);
+        else
+            -- Fallback to Healing Touch
+            CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_HEALING_TOUCH)[1].SpellID, BOOKTYPE_SPELL);
+        end
     elseif class == "paladin" then
         CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_HOLY_LIGHT)[1].SpellID, BOOKTYPE_SPELL);
     elseif class == "priest" then
