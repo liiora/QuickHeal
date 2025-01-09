@@ -152,6 +152,10 @@ Druid healing improvements & Shaman chainheal fix.
 - Shaman: Fixed intermittent ChainHeal SpellID error
 <hr>
 
-**1.17.6**<Br>
+**1.17.7**<Br>
 - Talents modifications (positions & values) for all class, linked to 1.17.2 Turtle Wow patch
-- Paladin : Integration of Holy Judgement mechanic to prio HL in that situation 
+- Paladin : Integration of Holy Judgement mechanic to prio HL in that situation
+- Paladin : Flash of Light R7 added
+- Druid: Brought back "Cfg->General->Healthy Threshold Slider/RatioHealthy" slider and explanation text; You can now only use regrowth even out of combat
+- Druid : Brought back low ranks
+- Druid : Tree of Life doesn't cancel on quickheal usage anymore
