@@ -158,7 +158,9 @@ Druid healing improvements & Shaman chainheal fix.
 <hr>
 
 **1.17.7**<Br>
-- Talents modifications (positions & values) for all class, linked to 1.17.2 Turtle Wow patch
+- Shaman : Removal of Purification talent bonus (no longer exist in last Turtle Wow Patch)
+- Priest : Holy spells updated for 1.17.2 values
+- Priest : Spiritual Healing new value (30% instead of 10%)
 - Paladin : Integration of Holy Judgement mechanic to prio HL in that situation
 - Paladin : Integration of Daybreak buff detection and multiplier
 - Paladin : Flash of Light R7 added
