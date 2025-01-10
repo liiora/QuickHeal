@@ -148,11 +148,11 @@ function QuickHeal_Shaman_FindChainHealSpellToUse(Target, healType, multiplier, 
 
     if not forceMaxRank then
         SpellID = SpellIDsCH[1]; HealSize = 356+healMod25;
-        --if healneed > (356*hwMod+healMod25) and ManaLeft >= 260 *tfMod and maxRankCH >=1 and SpellIDsCH[1] then SpellID = SpellIDsCH[1]; HealSize = 356+healMod25 end
-        if healneed > (898*hwMod+healMod25) and ManaLeft >= 315 *tfMod and maxRankCH >=2 and SpellIDsCH[2] then SpellID = SpellIDsCH[2]; HealSize = 449+healMod25 end
-        if healneed > (1213*hwMod+healMod25) and ManaLeft >= 405 *tfMod and maxRankCH >=3 and SpellIDsCH[3] then SpellID = SpellIDsCH[3]; HealSize = 607+healMod25 end
+        --if healneed > (356*hwMod+healMod25) and ManaLeft >= 260 *tfMod and maxRankCH >=1 and SpellIDsCH[1] then SpellID = SpellIDsCH[1]; HealSize = 356*hwMod+healMod25 end
+        if healneed > (898*hwMod+healMod25) and ManaLeft >= 315 *tfMod and maxRankCH >=2 and SpellIDsCH[2] then SpellID = SpellIDsCH[2]; HealSize = 449*hwMod+healMod25 end
+        if healneed > (1213*hwMod+healMod25) and ManaLeft >= 405 *tfMod and maxRankCH >=3 and SpellIDsCH[3] then SpellID = SpellIDsCH[3]; HealSize = 607*hwMod+healMod25 end
     else
-        SpellID = SpellIDsCH[3]; HealSize = 607+healMod25;
+        SpellID = SpellIDsCH[3]; HealSize = 607*hwMod+healMod25;
         --if ManaLeft >= 260 *tfMod and maxRankCH >=1 and SpellIDsCH[1] then SpellID = SpellIDsCH[1]; HealSize = 356+healMod25 end
         --if ManaLeft >= 315 *tfMod and maxRankCH >=2 and SpellIDsCH[2] then SpellID = SpellIDsCH[2]; HealSize = 449+healMod25 end
         --if ManaLeft >= 405 *tfMod and maxRankCH >=3 and SpellIDsCH[3] then SpellID = SpellIDsCH[3]; HealSize = 607+healMod25 end
