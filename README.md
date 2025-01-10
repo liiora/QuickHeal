@@ -51,8 +51,6 @@ Toggles tanklist display.
 
 `+` adds current target into the list.  `C` clears the list.
 
-** Additional Functionality (priest and druid classes only) **
-
 **Other keybinds for specific healing**
 
 `/qh [mask] [type] [mod]` OR `/quickheal [mask] [type] [mod]`:<Br>
