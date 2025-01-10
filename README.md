@@ -159,6 +159,7 @@ Druid healing improvements & Shaman chainheal fix.
 
 **1.17.7**<Br>
 - Shaman : Removal of Purification talent bonus (no longer exist in last Turtle Wow Patch)
+- Shaman : Healing Way buff now affects Chain Heal too
 - Priest : Holy spells updated for 1.17.2 values
 - Priest : Spiritual Healing new value (30% instead of 10%)
 - Paladin : Integration of Holy Judgement mechanic to prio HL in that situation
