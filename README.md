@@ -13,6 +13,7 @@ QuickHeal uses the incoming heal information broadcast by HealComm, through the 
 
 ## Installation
 - Download QuickHeal from this repository into your Interface folder and remove the "-main" in the folder name
+- Download HealComm (mandatory or QH won't work) from here https://github.com/Bestoriop/HealComm
 - Download Bonusscanner (Makes QuickHeal and HealComm (Luna unit Frames) more accurate by taking gear and +Heal into account: https://github.com/GryllsAddons/BonusScanner
 
 ## Usage
