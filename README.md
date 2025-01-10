@@ -27,52 +27,58 @@ QuickHeal uses the incoming heal information broadcast by HealComm, through the 
 **Heal**
 To invoke quickheal, make a macro with the `/qh` slash command syntax or set Key Bindings:
 
-![Imgur](https://i.imgur.com/iznZGhP.png)
 
 **Downrank**
 To conserve mana and heal more efficiently you can limit the maximum rank that QuickHeal will use. It is done by moving the slider. on the Downrank Window.
 
-`/qh dr` to open the Downrank Window:
+`/qh dr` to open the Downrank Window
 
-![Imgur](https://i.imgur.com/ncZ7PJ8.png)
-
-**Healing in Partition Mode: HPS Toggle**
-Partition mode means invoking QuickHeal to consider predefined subgroups within the raid (e.g. mt, nonmt, subgroup).  There are two modes for healing in partition mode: Normal HPS & High HPS.
-
-**High HPS** is restricted to fast-casting heal spells.
-    High healing throughput but low mana efficiency. e.g. Flash Heal
-
-**Normal HPS** encomapsses ALL healing spells regardless of relative cast time.
-    Normal healing throughput with higher mana efficiency.
+**High HPS vs Normal HPS**
 
 `/qh toggle`
-Toggles between Normal HPS and High HPS.
+Toggles between Normal HPS and High HPS. This corresponds to the **Toggle Heathy Threshold 0/100**.  When invoked, it will echo `QuickHeal mode: Normal HPS` and `QuickHeal mode: High HPS` in the console to display its current state.
+
+High HPS is restricted to fast-casting heal spells.
+    High healing throughput but low mana efficiency. e.g. Flash Heal
+
+Normal HPS encomapsses ALL healing spells regardless of relative cast time.
+    Normal healing throughput with higher mana efficiency.
+
+**Tank list and mt healing**
 
 `/qh tanklist`
 Toggles tanklist display.
-
-This corresponds to the **Toggle Heathy Threshold 0/100** keybind.  When invoked, it will echo `QuickHeal mode: Normal HPS` and `QuickHeal mode: High HPS` in the console to display its current state.
-
-`/qh mt`
-Only considers targets that are in the tank group, which is defined by populating the MT Target Filter:
-
-![Imgur](https://i.imgur.com/AvVqwVz.png)<Br>
-![Imgur](https://i.imgur.com/BVmvcHD.png)<Br>
 
 `+` adds current target into the list.  `C` clears the list.
 
 ** Additional Functionality (priest and druid classes only) **
 
-`/qh hot`<Br>
-  ..applies throttled HoT to any player w/o your class HoT AND < lowest % health in raid/party
+**Other keybinds for specific healing**
 
-`/qh hot max`<Br>
-  ..applies maximum rank HoT to any player w/o your class HoT AND < lowest % health in raid/party
+`/qh [mask] [type] [mod]` OR `/quickheal [mask] [type] [mod]`:<Br>
 
-`/qh mt hot fh`<Br>
-  ..applies maximum rank HoT to any player defined in the Main Tank group w/o your class HoT regardless of their health
+`[mask]`: constrains healing pool to:<Br>
+`player` = yourself<Br>
+`target` = your target<Br>
+`targettarget` = your target's target<Br>
+`party` = your party<Br>
+`mt` = main tanks (defined in the configuration panel)<Br>
+`nonmt` = everyone but the main tanks<Br>
+`subgroup` = raid subgroups (defined in the configuration panel)<Br>
+
+`[type]`: constrains healing spell to:<Br>
+`heal`: Forces the use of your class' channeled heal spells.<Br>
+`hot`: Forces the use of your class' HoT spell over a channeled spell.  Only works for Priests & Druids.<Br>
+`chainheal`: Forces the use of the Chain Heal spell.  Only works for Shamans.<Br>
+
+`[mod]`: optional argument.  Modifies the application of HoTs:<Br>
+`max`= will apply a HoT to the next target that is not @100% hp and that does not currently have a HoT applied.<Br>
+`fh` = firehose mode.  Will apply maximum rank HoT on the next target that does not have a HoT applied.<Br>
+<hr>
+
 
 ## ChangeLog:
+
 **1.14.5**<Br>
 Disabled vestigial config UI tab 'Target Filtering'
 Fixed lua error messages that were being generated from bad OnEnter syntax in QuickHeal.xml:1620:FilterRaidGroup1-8
