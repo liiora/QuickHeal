@@ -261,7 +261,7 @@ function QuickHeal_Paladin_FindHealSpellToUseNoTarget(maxhealth, healDeficit, he
     if dbMod then dbMod = 1.2 else dbMod = 1 end;
     debug("Daybreak healing modifier",dbMod);
 
-    -- Get a list of ranks available of 'Lesser Healing Wave' and 'Healing Wave'
+    -- Get a list of ranks available of 'Flash of Light' and 'Holy Light'
     local SpellIDsHL = GetSpellIDs(QUICKHEAL_SPELL_HOLY_LIGHT);
     local SpellIDsFL = GetSpellIDs(QUICKHEAL_SPELL_FLASH_OF_LIGHT);
     local maxRankHL = table.getn(SpellIDsHL);
@@ -312,11 +312,254 @@ function QuickHeal_Paladin_FindHealSpellToUseNoTarget(maxhealth, healDeficit, he
     return SpellID,HealSize*hdb;
 end
 
-function QuickHeal_Command_Paladin(msg)
+function QuickHeal_Paladin_FindHoTSpellToUse(Target, healType, forceMaxRank)
+    local SpellID = nil;
+    local HealSize = 0;
 
-    --if PlayerClass == "priest" then
-    --  writeLine("PALADIN", 0, 1, 0);
-    --end
+    -- +Healing-PenaltyFactor = (1-((20-LevelLearnt)*0.0375)) for all spells learnt before level 20
+    local PF1 = 0.2875;
+    local PF6 = 0.475;
+    local PF14 = 0.775;
+
+    -- Local aliases to access main module functionality and settings
+    local RatioFull = QuickHealVariables["RatioFull"];
+    local RatioHealthy = QuickHeal_GetRatioHealthy();
+    local UnitHasHealthInfo = QuickHeal_UnitHasHealthInfo;
+    local EstimateUnitHealNeed = QuickHeal_EstimateUnitHealNeed;
+    local GetSpellIDs = QuickHeal_GetSpellIDs;
+    local debug = QuickHeal_debug;
+
+    -- Return immediately if no player needs healing
+    if not Target then
+        return SpellID,HealSize;
+    end
+
+    -- Determine health and heal need of target
+    local healneed;
+    local Health;
+    if UnitHasHealthInfo(Target) then
+        -- Full info available
+        healneed = UnitHealthMax(Target) - UnitHealth(Target) - HealComm:getHeal(UnitName(Target)); -- Implementatio for HealComm
+        Health = UnitHealth(Target) / UnitHealthMax(Target);
+    else
+        -- Estimate target health
+        healneed = EstimateUnitHealNeed(Target,true);
+        Health = UnitHealth(Target)/100;
+    end
+
+    -- if BonusScanner is running, get +Healing bonus
+    local Bonus = 0;
+    if (BonusScanner) then
+        Bonus = tonumber(BonusScanner:GetBonus("HEAL"));
+        debug(string.format("Equipment Healing Bonus: %d", Bonus));
+    end
+
+    -- Calculate healing bonus
+    local healMod15 = (1.5/3.5) * Bonus;
+    local healMod25 = (2.5/3.5) * Bonus;
+    debug("Final Healing Bonus (1.5,2.5)", healMod15,healMod25);
+
+    local InCombat = UnitAffectingCombat('player') or UnitAffectingCombat(Target);
+
+    -- Healing Light Talent (increases healing by 4% per rank)
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,6);
+    local hlMod = 4*talentRank/100 + 1;
+    debug(string.format("Healing Light talentmodification: %f", hlMod))
+
+    local TargetIsHealthy = Health >= RatioHealthy;
+    local ManaLeft = UnitMana('player');
+
+    if TargetIsHealthy then
+        debug("Target is healthy",Health);
+    end
+
+    -- Detect proc of 'Hand of Edward the Odd' mace (next spell is instant cast)
+    if QuickHeal_DetectBuff('player',"Spell_Holy_SearingLight") then
+        debug("BUFF: Hand of Edward the Odd (out of combat healing forced)");
+        InCombat = false;
+    end
+
+    -- Detect proc of 'Holy Judgement" (next Holy Light is fast cast)
+    if QuickHeal_DetectBuff('player',"ability_paladin_judgementblue") then
+        debug("BUFF: Holy Judgement (out of combat healing forced)");
+        InCombat = false;
+    end
+
+    -- Get total healing modifier (factor) caused by healing target debuffs
+    local HDB = QuickHeal_GetHealModifier(Target);
+    debug("Target debuff healing modifier",HDB);
+    healneed = healneed/HDB;
+
+    -- Detect Daybreak on target
+    local dbMod = QuickHeal_DetectBuff(Target,"Spell_Holy_AuraMastery");
+    if dbMod then dbMod = 1.2 else dbMod = 1 end;
+    debug("Daybreak healing modifier",dbMod);
+
+    -- Get total healing modifier (factor) caused by healing target debuffs
+    local HDB = QuickHeal_GetHealModifier(Target);
+    debug("Target debuff healing modifier",HDB);
+    healneed = healneed/HDB;
+
+    -- Get a list of ranks available of 'Flash of Light' and 'Holy Light' and 'Holy Shock'
+    local SpellIDsHL = GetSpellIDs(QUICKHEAL_SPELL_HOLY_LIGHT);
+    local SpellIDsFL = GetSpellIDs(QUICKHEAL_SPELL_FLASH_OF_LIGHT);
+    local SpellIDsHS = GetSpellIDs(QUICKHEAL_SPELL_HOLY_SHOCK);
+    local maxRankHL = table.getn(SpellIDsHL);
+    local maxRankFL = table.getn(SpellIDsFL);
+    local maxRankHS = table.getn(SpellIDsHS);
+    local NoFL = maxRankFL < 1;
+    debug(string.format("Found HL up to rank %d, and found FL up to rank %d and found HS up to rank %d", maxRankHL, maxRankFL, maxRankHS))
+
+    --Get max HealRanks that are allowed to be used
+    local downRankFH = QuickHealVariables.DownrankValueFH  -- rank for 1.5 sec heals
+    local downRankNH = QuickHealVariables.DownrankValueNH -- rank for < 1.5 sec heals
+
+    -- below changed to not differentiate between in or out if combat. Original code down below
+    -- Find suitable SpellID based on the defined criteria
+    local k = 1;
+    local K = 1;
+    if InCombat then
+        local k = 0.9; -- In combat means that target is loosing life while casting, so compensate
+        local K = 0.8; -- k for fast spells (FL and HL Rank 1 and 2) and K for slow spells (HW)            3 = 4 | 3 < 4 | 3 > 4
+    end
+
+    QuickHeal_debug(string.format("healneed: %f  target: %s  healType: %s  forceMaxRank: %s", healneed, Target, healType, tostring(forceMaxRank)));
+
+    if healType == "hot" then
+        if not forceMaxHPS then
+            SpellID = SpellIDsHS[1]; HealSize = 365+healMod15; -- Default to Holy Shock(Rank 1)
+            if healneed >(500+healMod15)*dbMod*K and ManaLeft >= 410 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (500+healMod15)*dbMod end
+            if healneed >(650+healMod15)*dbMod*K and ManaLeft >= 485 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (650+healMod15)*dbMod end
+        else
+            SpellID = SpellIDsHS[3]; HealSize = (650+healMod15)*dbMod
+            if maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (500+healMod15)*dbMod end
+            if maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (650+healMod15)*dbMod end
+        end
+    end
+
+    return SpellID,HealSize*HDB;
+end
+
+function QuickHeal_Paladin_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, healType, multiplier, forceMaxHPS, forceMaxRank, hdb, incombat)
+    local SpellID = nil;
+    local HealSize = 0;
+
+    -- +Healing-PenaltyFactor = (1-((20-LevelLearnt)*0.0375)) for all spells learnt before level 20
+    local PF1 = 0.2875;
+    local PF6 = 0.475;
+    local PF14 = 0.775;
+
+    -- Local aliases to access main module functionality and settings
+    local RatioFull = QuickHealVariables["RatioFull"];
+    local RatioHealthy = QuickHeal_GetRatioHealthy();
+    local UnitHasHealthInfo = QuickHeal_UnitHasHealthInfo;
+    local EstimateUnitHealNeed = QuickHeal_EstimateUnitHealNeed;
+    local GetSpellIDs = QuickHeal_GetSpellIDs;
+    local debug = QuickHeal_debug;
+
+    -- Return immediately if no player needs healing
+    if not Target then
+        return SpellID,HealSize;
+    end
+
+    -- Determine health and heal need of target
+    local healneed;
+    local Health;
+    if UnitHasHealthInfo(Target) then
+        -- Full info available
+        healneed = UnitHealthMax(Target) - UnitHealth(Target) - HealComm:getHeal(UnitName(Target)); -- Implementatio for HealComm
+        Health = UnitHealth(Target) / UnitHealthMax(Target);
+    else
+        -- Estimate target health
+        healneed = EstimateUnitHealNeed(Target,true);
+        Health = UnitHealth(Target)/100;
+    end
+
+    -- if BonusScanner is running, get +Healing bonus
+    local Bonus = 0;
+    if (BonusScanner) then
+        Bonus = tonumber(BonusScanner:GetBonus("HEAL"));
+        debug(string.format("Equipment Healing Bonus: %d", Bonus));
+    end
+
+    -- Calculate healing bonus
+    local healMod15 = (1.5/3.5) * Bonus;
+    local healMod25 = (2.5/3.5) * Bonus;
+    debug("Final Healing Bonus (1.5,2.5)", healMod15,healMod25);
+
+    local InCombat = UnitAffectingCombat('player') or UnitAffectingCombat(Target);
+
+    -- Healing Light Talent (increases healing by 4% per rank)
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,6);
+    local hlMod = 4*talentRank/100 + 1;
+    debug(string.format("Healing Light talentmodification: %f", hlMod))
+
+    local TargetIsHealthy = Health >= RatioHealthy;
+    local ManaLeft = UnitMana('player');
+
+    if TargetIsHealthy then
+        debug("Target is healthy",Health);
+    end
+
+    -- Detect proc of 'Hand of Edward the Odd' mace (next spell is instant cast)
+    if QuickHeal_DetectBuff('player',"Spell_Holy_SearingLight") then
+        debug("BUFF: Hand of Edward the Odd (out of combat healing forced)");
+        InCombat = false;
+    end
+
+    -- Detect proc of 'Holy Judgement" (next Holy Light is fast cast)
+    if QuickHeal_DetectBuff('player',"ability_paladin_judgementblue") then
+        debug("BUFF: Holy Judgement (out of combat healing forced)");
+        InCombat = false;
+    end
+
+    -- Get total healing modifier (factor) caused by healing target debuffs
+    local HDB = QuickHeal_GetHealModifier(Target);
+    debug("Target debuff healing modifier",HDB);
+    healneed = healneed/HDB;
+
+    -- Detect Daybreak on target
+    local dbMod = QuickHeal_DetectBuff(Target,"Spell_Holy_AuraMastery");
+    if dbMod then dbMod = 1.2 else dbMod = 1 end;
+    debug("Daybreak healing modifier",dbMod);
+
+    -- Get total healing modifier (factor) caused by healing target debuffs
+    local HDB = QuickHeal_GetHealModifier(Target);
+    debug("Target debuff healing modifier",HDB);
+    healneed = healneed/HDB;
+
+    -- Get a list of ranks available of 'Flash of Light' and 'Holy Light' and 'Holy Shock'
+    local SpellIDsHL = GetSpellIDs(QUICKHEAL_SPELL_HOLY_LIGHT);
+    local SpellIDsFL = GetSpellIDs(QUICKHEAL_SPELL_FLASH_OF_LIGHT);
+    local SpellIDsHS = GetSpellIDs(QUICKHEAL_SPELL_HOLY_SHOCK);
+    local maxRankHL = table.getn(SpellIDsHL);
+    local maxRankFL = table.getn(SpellIDsFL);
+    local maxRankHS = table.getn(SpellIDsHS);
+    local NoFL = maxRankFL < 1;
+    debug(string.format("Found HL up to rank %d, and found FL up to rank %d and found HS up to rank %d", maxRankHL, maxRankFL, maxRankHS))
+
+    --Get max HealRanks that are allowed to be used
+    local downRankFH = QuickHealVariables.DownrankValueFH  -- rank for 1.5 sec heals
+    local downRankNH = QuickHealVariables.DownrankValueNH -- rank for < 1.5 sec heals
+
+    -- Compensation for health lost during combat
+    local k=1.0;
+    local K=1.0;
+    if InCombat then
+        k=0.9;
+        K=0.8;
+    end
+
+    SpellID = SpellIDsHS[1]; HealSize = 365+healMod15; -- Default to Holy Shock(Rank 1)
+    if healneed >(500+healMod15)*dbMod*K and ManaLeft >= 410 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (500+healMod15)*dbMod end
+    if healneed >(650+healMod15)*dbMod*K and ManaLeft >= 485 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (650+healMod15)*dbMod end
+
+    return SpellID,HealSize*hdb;
+end
+
+
+
+function QuickHeal_Command_Paladin(msg)
 
     local _, _, arg1, arg2, arg3 = string.find(msg, "%s?(%w+)%s?(%w+)%s?(%w+)")
 
@@ -325,8 +568,17 @@ function QuickHeal_Command_Paladin(msg)
         if arg1 == "player" or arg1 == "target" or arg1 == "targettarget" or arg1 == "party" or arg1 == "subgroup" or arg1 == "mt" or arg1 == "nonmt" then
             if arg2 == "heal" and arg3 == "max" then
                 --writeLine(QuickHealData.name .. " qh " .. arg1 .. " HEAL(maxHPS)", 0, 1, 0);
-                --QuickHeal(arg1, nil, nil, true);
                 QuickHeal(arg1, nil, nil, true);
+                return;
+            end
+            if arg2 == "hot" and arg3 == "fh" then
+                --writeLine(QuickHealData.name .. " qh " .. arg1 .. " HOT(max rank & no hp check)", 0, 1, 0);
+                QuickHOT(arg1, nil, nil, true, true);
+                return;
+            end
+            if arg2 == "hot" and arg3 == "max" then
+                --writeLine(QuickHealData.name .. " qh " .. arg1 .. " HOT(max rank)", 0, 1, 0);
+                QuickHOT(arg1, nil, nil, true, false);
                 return;
             end
         end
@@ -352,7 +604,22 @@ function QuickHeal_Command_Paladin(msg)
             QuickHeal(nil, nil, nil, true);
             return;
         end
+        if arg4 == "hot" and arg5 == "max" then
+            --writeLine(QuickHealData.name .. " HOT (max)", 0, 1, 0);
+            QuickHOT(nil, nil, nil, true, false);
+            return;
+        end
+        if arg4 == "hot" and arg5 == "fh" then
+            --writeLine(QuickHealData.name .. " FH (max rank & no hp check)", 0, 1, 0);
+            QuickHOT(nil, nil, nil, true, true);
+            return;
+        end
         if arg4 == "player" or arg4 == "target" or arg4 == "targettarget" or arg4 == "party" or arg4 == "subgroup" or arg4 == "mt" or arg4 == "nonmt" then
+            if arg5 == "hot" then
+                --writeLine(QuickHealData.name .. " qh " .. arg1 .. " HOT", 0, 1, 0);
+                QuickHOT(arg1, nil, nil, false, false);
+                return;
+            end
             if arg5 == "heal" then
                 --writeLine(QuickHealData.name .. " qh " .. arg1 .. " HEAL", 0, 1, 0);
                 QuickHeal(arg1, nil, nil, false);
@@ -398,6 +665,12 @@ function QuickHeal_Command_Paladin(msg)
         return;
     end
 
+    if cmd == "hot" then
+        --writeLine(QuickHealData.name .. " HOT", 0, 1, 0);
+        QuickHOT();
+        return;
+    end
+
     if cmd == "" then
         --writeLine(QuickHealData.name .. " qh", 0, 1, 0);
         QuickHeal(nil);
@@ -427,6 +700,10 @@ function QuickHeal_Command_Paladin(msg)
 
     writeLine(" [mod] (optional) modifies [heal] options:");
     writeLine("  [max] applies maximum rank HPS [heal] to subgroup members that have <100% health");
+    writeLine("  [hot] modifier options:");
+    writeLine("   [max] applies maximum HS rank to subgroup members that have <100% health");
+    writeLine("   [fh] applies maximum HS rank to subgroup members regardless of health status");
 
     writeLine("/qh reset - Reset configuration to default parameters for all classes.");
 end
+
