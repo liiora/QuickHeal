@@ -66,7 +66,7 @@ Toggles tanklist display.
 
 `[type]`: constrains healing spell to:<Br>
 `heal`: Forces the use of your class' channeled heal spells.<Br>
-`hot`: Forces the use of your class' HoT spell over a channeled spell.  Only works for Priests & Druids.<Br>
+`hot`: Forces the use of your class' HoT spell over a channeled spell.  Only works for Priests & Druids & Paladins (holy shock).<Br>
 `chainheal`: Forces the use of the Chain Heal spell.  Only works for Shamans.<Br>
 
 `[mod]`: optional argument.  Modifies the application of HoTs:<Br>
