@@ -1,7 +1,7 @@
 
-# QuickHeal v1.17.7
+# QuickHeal Turtle WOW
 
-QuickHeal for Turtle WoW (patch 1.17.2)
+QuickHeal for Turtle WoW (updated for patch 1.17.2)
 
 QuickHeal gives healers fast access to all of their direct healing spells for healing party/raid members and themselves. It lets you heal the people who need it, without having to target them manually, or even having to deselect the enemy you're fighting. It gives maximum mana efficiency, and will automatically use a lower rank of healing if the target doesn't need your biggest heal, or if your mana is running low. This also works when not in a party or a raid, and this will save you mana and precious time by automatically selecting the healing spell. There are several different key bindings for constraining the scope of players that will be considered for heals.
 
@@ -139,7 +139,7 @@ Druid healing improvements & Shaman chainheal fix.
 - Shaman: Fixed intermittent ChainHeal SpellID error
 <hr>
 
-**1.17.7**<Br>
+**1.18**<Br>
 - Shaman : Removal of Purification talent bonus (no longer exist in last Turtle Wow Patch)
 - Shaman : Healing Way buff now affects Chain Heal too
 - Priest : Holy spells updated for 1.17.2 values
