@@ -13,6 +13,7 @@ QUICKHEAL_SPELL_FLASH_HEAL = 'Soins rapides';
 -- Paladin
 QUICKHEAL_SPELL_HOLY_LIGHT = 'Lumi\195\168re sacr\195\169e';
 QUICKHEAL_SPELL_FLASH_OF_LIGHT = 'Eclair lumineux';
+QUICKHEAL_SPELL_HOLY_LIGHT = 'Horion sacré';
 
 -- Druid
 QUICKHEAL_SPELL_HEALING_TOUCH = 'Toucher gu\195\169risseur';
