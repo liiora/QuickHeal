@@ -13,6 +13,7 @@ QUICKHEAL_SPELL_FLASH_HEAL = 'Blitzheilung';
 -- Paladin
 QUICKHEAL_SPELL_HOLY_LIGHT = 'Heiliges Licht';
 QUICKHEAL_SPELL_FLASH_OF_LIGHT = 'Lichtblitz';
+QUICKHEAL_SPELL_HOLY_SHOCK = 'Heiliger Schock';
 
 -- Druid
 QUICKHEAL_SPELL_HEALING_TOUCH = 'Heilende Ber\195\188hrung';
