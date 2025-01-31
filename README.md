@@ -155,6 +155,7 @@ Druid healing improvements & Shaman chainheal fix.
   **1.19**<Br>
 - Paladin : Integration of Holy Shock logic with the "/qh hot" macro
 - Paladin : Holy Shock now use a rank system to limit overheal, updated from 1.17.2 values
+- Paladin : Divine Favor is taken in account for holy shock effectiveness
 - Paladin : Holy Shock is now usable while moving
 
 
