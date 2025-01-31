@@ -366,6 +366,11 @@ function QuickHeal_Paladin_FindHoTSpellToUse(Target, healType, forceMaxRank)
     local hlMod = 4*talentRank/100 + 1;
     debug(string.format("Healing Light talentmodification: %f", hlMod))
 
+    -- Divine Favor Talent (increases Holy shock effect by 5% per rank, as crit is 50% bonus only)
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,13);
+    local hsMod = 5*talentRank/100 + 1;
+    debug(string.format("Divine Favor talentmodification: %f", hsMod))
+
     local TargetIsHealthy = Health >= RatioHealthy;
     local ManaLeft = UnitMana('player');
 
@@ -427,15 +432,15 @@ function QuickHeal_Paladin_FindHoTSpellToUse(Target, healType, forceMaxRank)
 
     if healType == "hot" then
         if not forceMaxHPS then
-            SpellID = SpellIDsHS[1]; HealSize = 315+healMod15; -- Default to Holy Shock(Rank 1)
-            if healneed >(360+healMod15)*dbMod*K and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dbMod end
-            if healneed >(500+healMod15)*dbMod*K and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dbMod end
-	    if healneed >(655+healMod15)*dbMod*K and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dbMod end
+            SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*hsMod*dbMod; -- Default to Holy Shock(Rank 1)
+            if healneed >(360+healMod15)*hsMod*dbMod*K and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*hsMod*dbMod end
+            if healneed >(500+healMod15)*hsMod*dbMod*K and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*hsMod*dbMod end
+	    if healneed >(655+healMod15)*hsMod*dbMod*K and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*hsMod*dbMod end
         else
-            SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dbMod
-            if maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dbMod end
-            if maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dbMod end
-	    if maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dbMod end
+            SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*hsMod*dbMod
+            if maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*hsMod*dbMod end
+            if maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*hsMod*dbMod end
+	    if maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*hsMod*dbMod end
         end
     end
 
@@ -496,6 +501,11 @@ function QuickHeal_Paladin_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, hea
     local hlMod = 4*talentRank/100 + 1;
     debug(string.format("Healing Light talentmodification: %f", hlMod))
 
+    -- Divine Favor Talent (increases Holy shock effect by 5% per rank, as crit is 50% bonus only)
+    local _,_,_,_,talentRank,_ = GetTalentInfo(1,13);
+    local hsMod = 5*talentRank/100 + 1;
+    debug(string.format("Divine Favor talentmodification: %f", hsMod))
+
     local TargetIsHealthy = Health >= RatioHealthy;
     local ManaLeft = UnitMana('player');
 
@@ -552,10 +562,10 @@ function QuickHeal_Paladin_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, hea
         K=0.8;
     end
 
-    SpellID = SpellIDsHS[1]; HealSize = 315+healMod15; -- Default to Holy Shock(Rank 1)
-    if healneed >(360+healMod15)*dbMod*K and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dbMod end
-    if healneed >(500+healMod15)*dbMod*K and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dbMod end
-    if healneed >(655+healMod15)*dbMod*K and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dbMod end
+    SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*hsMod*dbMod; -- Default to Holy Shock(Rank 1)
+    if healneed >(360+healMod15)*hsMod*dbMod*K and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*hsMod*dbMod end
+    if healneed >(500+healMod15)*hsMod*dbMod*K and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*hsMod*dbMod end
+    if healneed >(655+healMod15)*hsMod*dbMod*K and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*hsMod*dbMod end
 
     return SpellID,HealSize*hdb;
 end
