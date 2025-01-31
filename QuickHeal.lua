@@ -964,6 +964,8 @@ local function Initialise()
     elseif PlayerClass == "paladin" then
         FindHealSpellToUse = QuickHeal_Paladin_FindSpellToUse;
         FindHealSpellToUseNoTarget = QuickHeal_Paladin_FindHealSpellToUseNoTarget;
+        FindHoTSpellToUse = QuickHeal_Paladin_FindHoTSpellToUse;
+        FindHoTSpellToUseNoTarget = QuickHeal_Paladin_FindHoTSpellToUseNoTarget;
         GetRatioHealthyExplanation = QuickHeal_Paladin_GetRatioHealthyExplanation;
         -- convert default (priest) downrank window to Paladin with only FH Slider shown
         QuickHealDownrank_Slider_NH:Hide();
@@ -1941,8 +1943,8 @@ local function CastCheckSpellHOT()
     --QuickHeal_debug("********** BREAKPOINT: CastCheckSpellHOT() **********");
     if class == "druid" then
         CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_REJUVENATION)[1].SpellID, BOOKTYPE_SPELL);
-    --elseif class == "paladin" then
-    --    CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_HOLY_LIGHT)[1].SpellID, BOOKTYPE_SPELL);
+    elseif class == "paladin" then
+        CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_HOLY_SHOCK)[1].SpellID, BOOKTYPE_SPELL);
     elseif class == "priest" then
         CastSpell(QuickHeal_GetSpellInfo(QUICKHEAL_SPELL_RENEW)[1].SpellID, BOOKTYPE_SPELL);
     --elseif class == "shaman" then
@@ -2190,6 +2192,8 @@ local function FindWhoToHOT(Restrict, extParam, noHpCheck)
             if not UnitHasRejuvenation('player') then
                 return 'player';
             end
+        elseif PlayerClass == "paladin" then
+            return 'player';
         end
     end
 
@@ -2206,6 +2210,8 @@ local function FindWhoToHOT(Restrict, extParam, noHpCheck)
                 if not UnitHasRejuvenation('target') then
                     return 'target';
                 end
+            elseif PlayerClass == "paladin" then
+                return 'target';
             end
         end
     end
@@ -2328,6 +2334,12 @@ local function FindWhoToHOT(Restrict, extParam, noHpCheck)
                                     healingTargetHealthPct = PredictedHealthPct;
                                     AllPlayersAreFull = false;
                                 end
+			    end
+                        elseif PlayerClass == "paladin" then
+                            if PredictedHealthPct < healingTargetHealthPct or healingTargetHealthPct == 1 then
+                                healingTarget = unit;
+                                healingTargetHealthPct = PredictedHealthPct;
+                                AllPlayersAreFull = false;
                             end
                         else
                             writeLine(QuickHealData.name .. " " .. QuickHealData.version .. " does not support " .. UnitClass('player') .. ". " .. QuickHealData.name .. " not loaded.")
@@ -2359,6 +2371,12 @@ local function FindWhoToHOT(Restrict, extParam, noHpCheck)
                                         healingTargetMissingHealth = PredictedMissingHealth;
                                         AllPlayersAreFull = false;
                                     end
+                                end
+                            elseif PlayerClass == "paladin" then
+                                if PredictedMissingHealth > healingTargetMissingHealth then
+                                    healingTarget = unit;
+                                    healingTargetMissingHealth = PredictedMissingHealth;
+                                    AllPlayersAreFull = false;
                                 end
                             else
                                 writeLine(QuickHealData.name .. " " .. QuickHealData.version .. " does not support " .. UnitClass('player') .. ". " .. QuickHealData.name .. " not loaded.")
@@ -3322,5 +3340,6 @@ end
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
 ------------------------------------------------------------------------------------------------------------------------
+
 
 
