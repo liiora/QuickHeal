@@ -150,10 +150,11 @@ Druid healing improvements & Shaman chainheal fix.
 - Druid : Tree of Life doesn't cancel on quickheal usage anymore
 - Druid: Brought back "Cfg->General->Healthy Threshold Slider/RatioHealthy" slider and explanation text; You can now use regrowth even out of combat for Tree of life lovers
 - Druid : Brought back low ranks
+<hr>
 
   **1.19**<Br>
 - Paladin : Integration of Holy Shock logic with the "/qh hot" macro
-- Paladin : Holy Shock now use a rank system to limit overheal
+- Paladin : Holy Shock now use a rank system to limit overheal, updated from 1.17.2 values
 - Paladin : Holy Shock is now usable while moving
 
 
