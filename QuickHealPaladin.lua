@@ -145,7 +145,7 @@ function QuickHeal_Paladin_FindSpellToUse(Target, healType, multiplier, forceMax
     local K = 1;
     if InCombat then
         local k = 0.9; -- In combat means that target is loosing life while casting, so compensate
-        local K = 0.8; -- k for fast spells (LHW and HW Rank 1 and 2) and K for slow spells (HW)            3 = 4 | 3 < 4 | 3 > 4
+        local K = 0.8; -- k for fast spells (FL) and K for slow spells (HL)            3 = 4 | 3 < 4 | 3 > 4
     end
 
     if not forceMaxHPS or not InCombat then
@@ -280,7 +280,7 @@ function QuickHeal_Paladin_FindHealSpellToUseNoTarget(maxhealth, healDeficit, he
     local K = 1;
     if InCombat then
         local k = 0.9; -- In combat means that target is loosing life while casting, so compensate
-        local K = 0.8; -- k for fast spells (LHW and HW Rank 1 and 2) and K for slow spells (HW)            3 = 4 | 3 < 4 | 3 > 4
+        local K = 0.8; -- k for fast spells (FL) and K for slow spells (HL)            3 = 4 | 3 < 4 | 3 > 4
     end
 
     if not forceMaxHPS or not InCombat then
@@ -402,23 +402,15 @@ function QuickHeal_Paladin_FindHoTSpellToUse(Target, healType, forceMaxRank)
     local downRankFH = QuickHealVariables.DownrankValueFH  -- rank for 1.5 sec heals
     local downRankNH = QuickHealVariables.DownrankValueNH -- rank for < 1.5 sec heals
 
-    -- below changed to not differentiate between in or out if combat. Original code down below
-    -- Find suitable SpellID based on the defined criteria
-    local k = 1;
-    local K = 1;
-    if InCombat then
-        local k = 0.9; -- In combat means that target is loosing life while casting, so compensate
-        local K = 0.8; -- k for fast spells (FL and HL Rank 1 and 2) and K for slow spells (HW)            3 = 4 | 3 < 4 | 3 > 4
-    end
 
     QuickHeal_debug(string.format("healneed: %f  target: %s  healType: %s  forceMaxRank: %s", healneed, Target, healType, tostring(forceMaxRank)));
 
     if healType == "hot" then
         if not forceMaxHPS then
             SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*dfMod*dbMod^1.5; -- Default to Holy Shock(Rank 1)
-            if healneed >(360+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
-            if healneed >(500+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
-	    if healneed >(655+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
+            if healneed >(360+healMod15)*dfMod*dbMod^1.5 and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
+            if healneed >(500+healMod15)*dfMod*dbMod^1.5 and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
+	    if healneed >(655+healMod15)*dfMod*dbMod^1.5 and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
         else
             SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5
             if maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
@@ -520,18 +512,11 @@ function QuickHeal_Paladin_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, hea
     local downRankFH = QuickHealVariables.DownrankValueFH  -- rank for 1.5 sec heals
     local downRankNH = QuickHealVariables.DownrankValueNH -- rank for < 1.5 sec heals
 
-    -- Compensation for health lost during combat
-    local k=1.0;
-    local K=1.0;
-    if InCombat then
-        k=0.9;
-        K=0.8;
-    end
 
     SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*dfMod*dbMod^1.5; -- Default to Holy Shock(Rank 1)
-    if healneed >(360+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
-    if healneed >(500+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
-    if healneed >(655+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
+    if healneed >(360+healMod15)*dfMod*dbMod^1.5 and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
+    if healneed >(500+healMod15)*dfMod*dbMod^1.5 and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
+    if healneed >(655+healMod15)*dfMod*dbMod^1.5 and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
 
     return SpellID,HealSize*hdb;
 end
