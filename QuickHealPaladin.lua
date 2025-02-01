@@ -415,15 +415,15 @@ function QuickHeal_Paladin_FindHoTSpellToUse(Target, healType, forceMaxRank)
 
     if healType == "hot" then
         if not forceMaxHPS then
-            SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*dfMod*dbMod; -- Default to Holy Shock(Rank 1)
-            if healneed >(360+healMod15)*dfMod*dbMod*K and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod end
-            if healneed >(500+healMod15)*dfMod*dbMod*K and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod end
-	    if healneed >(655+healMod15)*dfMod*dbMod*K and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod end
+            SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*dfMod*dbMod^1.5; -- Default to Holy Shock(Rank 1)
+            if healneed >(360+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
+            if healneed >(500+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
+	    if healneed >(655+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
         else
-            SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod
-            if maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod end
-            if maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod end
-	    if maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod end
+            SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5
+            if maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
+            if maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
+	    if maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
         end
     end
 
@@ -528,10 +528,10 @@ function QuickHeal_Paladin_FindHoTSpellToUseNoTarget(maxhealth, healDeficit, hea
         K=0.8;
     end
 
-    SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*dfMod*dbMod; -- Default to Holy Shock(Rank 1)
-    if healneed >(360+healMod15)*dfMod*dbMod*K and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod end
-    if healneed >(500+healMod15)*dfMod*dbMod*K and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod end
-    if healneed >(655+healMod15)*dfMod*dbMod*K and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod end
+    SpellID = SpellIDsHS[1]; HealSize = (315+healMod15)*dfMod*dbMod^1.5; -- Default to Holy Shock(Rank 1)
+    if healneed >(360+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 335 and maxRankHS >=2 and SpellIDsHS[2] then SpellID = SpellIDsHS[2]; HealSize = (360+healMod15)*dfMod*dbMod^1.5 end
+    if healneed >(500+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 410 and maxRankHS >=3 and SpellIDsHS[3] then SpellID = SpellIDsHS[3]; HealSize = (500+healMod15)*dfMod*dbMod^1.5 end
+    if healneed >(655+healMod15)*dfMod*dbMod^1.5*k and ManaLeft >= 485 and maxRankHS >=4 and SpellIDsHS[4] then SpellID = SpellIDsHS[4]; HealSize = (655+healMod15)*dfMod*dbMod^1.5 end
 
     return SpellID,HealSize*hdb;
 end
