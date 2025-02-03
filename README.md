@@ -157,5 +157,6 @@ Druid healing improvements & Shaman chainheal fix.
 - Paladin : Holy Shock now use a rank system to limit overheal, updated from 1.17.2 values
 - Paladin : Divine Favor is taken in account for holy shock effectiveness
 - Paladin : Holy Shock is now usable while moving
+- Druid : Improvd regrowth is taken in account for Regrowth effectiveness
 
 
