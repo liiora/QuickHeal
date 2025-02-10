@@ -771,204 +771,204 @@ HealComm.Spells = {
 	};
 	[L["Lesser Heal"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (52*shMod+((1.5/3.5) * (SpellPower+sgMod))*0.19)
+			local shMod = 6*talentRank2/100 + 1
+			return (53+((1.5/3.5) * (SpellPower+sgMod))*0.19)*shMod
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (79*shMod+((2/3.5) * (SpellPower+sgMod))*0.34)
+			local shMod = 6*talentRank2/100 + 1
+			return (84+((2/3.5) * (SpellPower+sgMod))*0.34)*shMod
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (147*shMod+((2.5/3.5) * (SpellPower+sgMod))*0.6)
+			local shMod = 6*talentRank2/100 + 1
+			return (154+((2.5/3.5) * (SpellPower+sgMod))*0.6)*shMod
 		end;
 	};
 	[L["Heal"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (319*shMod+((3/3.5) * (SpellPower+sgMod))*0.586)
+			local shMod = 6*talentRank2/100 + 1
+			return (330+((3/3.5) * (SpellPower+sgMod))*0.586)*shMod
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (471*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (476+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (610*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (624+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[4] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (759*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (667+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 	};
 	[L["Flash Heal"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (216*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (225+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (287*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (297+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (361*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (319+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[4] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (440*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (387+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[5] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (568*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (498+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[6] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (705*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (618+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[7] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (886*shMod+((1.5/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (769+((1.5/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 	};
 	[L["Greater Heal"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (957*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (838+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (1220*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (1066+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (1524*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (1328+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[4] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (1903*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (1632+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 		[5] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (2081*shMod+((3/3.5) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (1768+((3/3.5) * (SpellPower+sgMod)))*shMod
 		end;
 	};
 	[L["Prayer of Healing"]] = {
 		[1] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (311*shMod+((3/3.5/3) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (323+((3/3.5/3) * (SpellPower+sgMod)))*shMod
 		end;
 		[2] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (460*shMod+((3/3.5/3) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (405+((3/3.5/3) * (SpellPower+sgMod)))*shMod
 		end;
 		[3] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (676*shMod+((3/3.5/3) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (593+((3/3.5/3) * (SpellPower+sgMod)))*shMod
 		end;
 		[4] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (965*shMod+((3/3.5/3) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (820+((3/3.5/3) * (SpellPower+sgMod)))*shMod
 		end;
 		[5] = function (SpellPower)
-			local _,_,_,_,talentRank,_ = GetTalentInfo(2,14)
+			local _,_,_,_,talentRank,_ = GetTalentInfo(2,12)
 			local _,Spirit,_,_ = UnitStat("player",5)
 			local sgMod = Spirit * 5*talentRank/100
 			local _,_,_,_,talentRank2,_ = GetTalentInfo(2,15)
-			local shMod = 2*talentRank2/100 + 1
-			return (1070*shMod+((3/3.5/3) * (SpellPower+sgMod)))
+			local shMod = 6*talentRank2/100 + 1
+			return (910+((3/3.5/3) * (SpellPower+sgMod)))*shMod
 		end;
 	};
 	[L["Healing Touch"]] = {
